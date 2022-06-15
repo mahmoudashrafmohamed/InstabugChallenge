@@ -9,10 +9,11 @@ import com.mahmoudashraf.remote.WordsRemoteDataSource
 
 class WordsRepositoryImpl(
     private val wordsRemoteDataSource: WordsRemoteDataSource = WordsAPI(),
-    private val wordsLocalDataSource: WordsLocalDataSource = WordsLocalDataSourceImpl()
+    private val wordsLocalDataSource: WordsLocalDataSource = WordsLocalDataSourceImpl(),
+    private val isInternetAvailable : Boolean = isInternetAvailable()
 ) : WordsRepository {
     override fun getWords(): List<String> {
-        return if (isInternetAvailable()) {
+        return if (isInternetAvailable) {
             val remoteResponse = wordsRemoteDataSource.getWords()
             wordsLocalDataSource.saveWords(remoteResponse)
             remoteResponse
