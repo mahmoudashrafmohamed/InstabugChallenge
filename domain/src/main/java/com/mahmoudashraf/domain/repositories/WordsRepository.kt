@@ -1,5 +1,5 @@
 package com.mahmoudashraf.domain.repositories
 
 interface WordsRepository {
-    fun getWords() : Any
+    fun getWords() : List<String>
 }
