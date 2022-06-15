@@ -1,5 +1,6 @@
 package com.mahmoudashraf.data.repositories
 
+import com.mahmoudashraf.core.extensions.isInternetAvailable
 import com.mahmoudashraf.data.sources.local.WordsLocalDataSource
 import com.mahmoudashraf.data.sources.local.WordsLocalDataSourceImpl
 import com.mahmoudashraf.data.sources.remote.WordsAPI
@@ -11,8 +12,13 @@ class WordsRepositoryImpl(
     private val wordsLocalDataSource: WordsLocalDataSource = WordsLocalDataSourceImpl()
 ) : WordsRepository {
     override fun getWords(): List<String> {
-        val words =  wordsRemoteDataSource.getWords()
-        wordsLocalDataSource.saveWords(words)
-        return words
+        return if (isInternetAvailable()) {
+            val remoteResponse = wordsRemoteDataSource.getWords()
+            wordsLocalDataSource.saveWords(remoteResponse)
+            remoteResponse
+        } else {
+            val localResponse = wordsLocalDataSource.getWords()
+            localResponse
+        }
     }
 }
