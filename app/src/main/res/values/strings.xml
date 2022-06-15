@@ -2,4 +2,5 @@
     <string name="app_name">Android Challenge</string>
     <string name="no_data_available">No Data Available :(</string>
     <string name="something_wrong_error_msg">Something wrong happened, try again!</string>
+    <string name="lbl_word">word</string>
 </resources>

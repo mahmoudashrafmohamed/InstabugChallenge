@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -23,6 +24,7 @@ class WordsFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var emptyView : TextView
     private lateinit var wordsRecycler : RecyclerView
+    private lateinit var searchView: SearchView
 
     private val viewModelProvider: (ViewModelStoreOwner) -> WordsViewModel = {
         ViewModelProvider(it)[WordsViewModel::class.java]
@@ -73,8 +75,13 @@ class WordsFragment : Fragment() {
 
     private fun handleSuccessState(wordsList: List<WordUIModel>) {
         hideLoading()
+        hideEmptyView()
         showWordsRecyclerView()
         bindRecyclerData(wordsList)
+    }
+
+    private fun hideEmptyView() {
+        emptyView.visibility = View.GONE
     }
 
     private fun showWordsRecyclerView() {
@@ -98,8 +105,24 @@ class WordsFragment : Fragment() {
             progressBar =  it.findViewById(R.id.progress_bar)
             emptyView = it.findViewById(R.id.tv_empty_data)
             wordsRecycler = it.findViewById(R.id.rv_words)
+            searchView = it.findViewById(R.id.sv_main)
         } ?: return
         setupWordsRecyclerView(wordsRecycler)
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        searchView.isSubmitButtonEnabled = false
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.filterWordsByName(newText?:"")
+                return true
+            }
+        })
     }
 
     private fun setupWordsRecyclerView(wordsRecycler : RecyclerView) {

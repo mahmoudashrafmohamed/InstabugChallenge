@@ -15,6 +15,7 @@ class WordsViewModel(
 ) : ViewModel() {
 
     val screenState by lazy { MutableLiveData<WordsScreenState>() }
+    private val cachedWordList = mutableListOf<WordUIModel>()
 
     fun getWords() {
         screenState.postValue(WordsScreenState.Loading)
@@ -22,6 +23,7 @@ class WordsViewModel(
             try {
                 val words = getWordsUseCase()
                 val wordsUIModelsList = words.mapToWordsListUIModel()
+                setInMemoryCachedList(wordsUIModelsList)
                 if (wordsUIModelsList.isEmpty())
                     screenState.postValue(WordsScreenState.Empty)
                 else
@@ -31,6 +33,19 @@ class WordsViewModel(
                 screenState.postValue(WordsScreenState.Error(ex))
             }
         }
+    }
+
+    private fun setInMemoryCachedList(wordsUIModelsList: List<WordUIModel>) {
+        cachedWordList.clear()
+        cachedWordList.addAll(wordsUIModelsList)
+    }
+
+    fun filterWordsByName(word: String) {
+        val filteredList = cachedWordList.filter { it.name.contains(word,true) }
+        if (filteredList.isEmpty())
+            screenState.postValue(WordsScreenState.Empty)
+        else
+            screenState.postValue(WordsScreenState.Success(filteredList))
     }
 
 }

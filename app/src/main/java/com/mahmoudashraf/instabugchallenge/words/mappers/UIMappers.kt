@@ -8,7 +8,7 @@ fun List<String>.mapToWordsListUIModel() : List<WordUIModel> {
         var count = wordWithCountHashMap[it] ?: 0
         wordWithCountHashMap[it] = ++count
     }
-    return this.map {
-        WordUIModel(it,wordWithCountHashMap[it]?:0)
+    return wordWithCountHashMap.map {
+        WordUIModel(it.key,it.value)
     }
 }
