@@ -1,4 +1,4 @@
-package com.mahmoudashraf.data.sources.remote
+package com.mahmoudashraf.remote
 
 import java.io.BufferedReader
 import java.io.IOException
@@ -28,22 +28,17 @@ class WordsAPI : WordsRemoteDataSource {
                         words.append(line).append("\n")
                     }
                 }
-                else -> {
-                    throw IOException("${httpURLConnection.responseCode}")
-                }
+                else -> throw IOException("${httpURLConnection.responseCode}")
             }
-
         } catch (e: Exception) {
             throw Exception("something wrong happened!")
         }
-        return words
-            .toString()
+        return words.toString()
             .extractCharactersAndSpacesOnly()
             .trim()
             .split("\\s+".toRegex())
     }
 }
-
 
 fun String.extractCharactersAndSpacesOnly(): String {
     val regex = "[^A-Za-z ]".toRegex()

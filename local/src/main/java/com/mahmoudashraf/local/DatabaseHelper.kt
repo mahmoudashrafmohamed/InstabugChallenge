@@ -1,4 +1,4 @@
-package com.mahmoudashraf.data.sources.local
+package com.mahmoudashraf.local
 
 import android.content.ContentValues
 import android.content.Context

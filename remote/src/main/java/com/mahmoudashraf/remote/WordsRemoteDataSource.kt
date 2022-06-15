@@ -1,4 +1,4 @@
-package com.mahmoudashraf.data.sources.remote
+package com.mahmoudashraf.remote
 
 interface WordsRemoteDataSource {
     fun getWords(): List<String>

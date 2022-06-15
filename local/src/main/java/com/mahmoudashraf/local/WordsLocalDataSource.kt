@@ -1,4 +1,4 @@
-package com.mahmoudashraf.data.sources.local
+package com.mahmoudashraf.local
 
 interface WordsLocalDataSource {
     fun getWords(): List<String>
