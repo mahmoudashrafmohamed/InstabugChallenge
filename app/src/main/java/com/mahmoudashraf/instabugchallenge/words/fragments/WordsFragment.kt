@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,7 @@ class WordsFragment : Fragment() {
     private lateinit var emptyView : TextView
     private lateinit var wordsRecycler : RecyclerView
     private lateinit var searchView: SearchView
+    private lateinit var sortBtn: ImageButton
 
     private val viewModelProvider: (ViewModelStoreOwner) -> WordsViewModel = {
         ViewModelProvider(it)[WordsViewModel::class.java]
@@ -90,6 +92,7 @@ class WordsFragment : Fragment() {
 
     private fun bindRecyclerData(wordsList: List<WordUIModel>) {
         wordsAdapter.submitList(wordsList)
+        wordsRecycler.post { wordsRecycler.scrollToPosition(0) }
     }
 
     private fun hideLoading() {
@@ -106,9 +109,17 @@ class WordsFragment : Fragment() {
             emptyView = it.findViewById(R.id.tv_empty_data)
             wordsRecycler = it.findViewById(R.id.rv_words)
             searchView = it.findViewById(R.id.sv_main)
+            sortBtn = it.findViewById(R.id.img_sort)
         } ?: return
         setupWordsRecyclerView(wordsRecycler)
         setupSearchView()
+        setupSortClickListener()
+    }
+
+    private fun setupSortClickListener() {
+        sortBtn.setOnClickListener {
+            viewModel.toggleSort()
+        }
     }
 
     private fun setupSearchView() {

@@ -9,6 +9,7 @@ import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutorsManager
 import com.mahmoudashraf.instabugchallenge.words.mappers.mapToWordsListUIModel
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
 
+enum class SortType {ASC, DESC}
 class WordsViewModel(
     private val getWordsUseCase: GetWordsUseCase = GetWordsUseCase(wordsRepository = WordsRepositoryImpl()),
     private val executors: AppExecutorsManager = AppExecutors.instance,
@@ -16,6 +17,7 @@ class WordsViewModel(
 
     val screenState by lazy { MutableLiveData<WordsScreenState>() }
     private val cachedWordList = mutableListOf<WordUIModel>()
+    private var sortType = SortType.ASC.name
 
     fun getWords() {
         screenState.postValue(WordsScreenState.Loading)
@@ -46,6 +48,26 @@ class WordsViewModel(
             screenState.postValue(WordsScreenState.Empty)
         else
             screenState.postValue(WordsScreenState.Success(filteredList))
+    }
+
+    fun toggleSort() {
+        if (sortType==SortType.ASC.name){
+            sortType= SortType.DESC.name
+            val sortedList = cachedWordList.sortedBy { it.count }.reversed()
+            emitSortedListState(sortedList)
+        }
+        else {
+            sortType= SortType.ASC.name
+            val sortedList = cachedWordList.sortedBy { it.count }
+            emitSortedListState(sortedList)
+        }
+    }
+
+    private fun emitSortedListState(sortedList: List<WordUIModel>) {
+        if (sortedList.isEmpty())
+            screenState.postValue(WordsScreenState.Empty)
+        else
+            screenState.postValue(WordsScreenState.Success(sortedList))
     }
 
 }
