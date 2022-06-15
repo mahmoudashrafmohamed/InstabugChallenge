@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -16,7 +17,6 @@ import com.mahmoudashraf.instabugchallenge.words.adapter.WordsAdapter
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
 import com.mahmoudashraf.instabugchallenge.words.viewmodel.WordsScreenState
 import com.mahmoudashraf.instabugchallenge.words.viewmodel.WordsViewModel
-
 
 class WordsFragment : Fragment() {
 
@@ -49,7 +49,7 @@ class WordsFragment : Fragment() {
         when (state) {
             is WordsScreenState.Loading -> showLoading()
             is WordsScreenState.Success -> handleSuccessState(state.wordsList)
-            is WordsScreenState.Error ->  handleErrorState(state.ex)
+            is WordsScreenState.Error ->  handleErrorState()
             is WordsScreenState.Empty -> handleEmptyState()
         }
     }
@@ -67,8 +67,8 @@ class WordsFragment : Fragment() {
         emptyView.visibility = View.VISIBLE
     }
 
-    private fun handleErrorState(error: Any) {
-        error.toString()
+    private fun handleErrorState() {
+       Toast.makeText(context,getString(R.string.something_wrong_error_msg),Toast.LENGTH_LONG).show()
     }
 
     private fun handleSuccessState(wordsList: List<WordUIModel>) {

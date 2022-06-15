@@ -34,7 +34,7 @@ class WordsAPI : WordsRemoteDataSource {
             }
 
         } catch (e: Exception) {
-            e.printStackTrace()
+            throw Exception("something wrong happened!")
         }
         return words
             .toString()
