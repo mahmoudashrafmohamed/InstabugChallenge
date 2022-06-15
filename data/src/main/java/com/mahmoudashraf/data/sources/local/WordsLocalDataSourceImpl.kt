@@ -1,6 +1,8 @@
 package com.mahmoudashraf.data.sources.local
 
-class WordsLocalDataSourceImpl(private val dbHelper: DatabaseHelper) : WordsLocalDataSource {
+import com.mahmoudashraf.core.base.appContext
+
+class WordsLocalDataSourceImpl(private val dbHelper: DatabaseHelper = DatabaseHelper(appContext)) : WordsLocalDataSource {
     override fun getWords(): List<String> {
         return dbHelper.getWords()
     }

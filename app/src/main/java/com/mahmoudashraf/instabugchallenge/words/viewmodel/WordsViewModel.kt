@@ -2,6 +2,7 @@ package com.mahmoudashraf.instabugchallenge.words.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mahmoudashraf.data.repositories.WordsRepositoryImpl
 import com.mahmoudashraf.domain.usecases.GetWordsUseCase
 import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutors
 import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutorsManager
@@ -9,8 +10,8 @@ import com.mahmoudashraf.instabugchallenge.words.mappers.mapToWordsListUIModel
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
 
 class WordsViewModel(
-    private val getWordsUseCase: GetWordsUseCase,
-    private val executors: AppExecutorsManager = AppExecutors.instance
+    private val getWordsUseCase: GetWordsUseCase = GetWordsUseCase(wordsRepository = WordsRepositoryImpl()),
+    private val executors: AppExecutorsManager = AppExecutors.instance,
 ) : ViewModel() {
 
     val screenState by lazy { MutableLiveData<WordsScreenState>() }
@@ -31,6 +32,7 @@ class WordsViewModel(
             }
         }
     }
+
 }
 
 sealed class WordsScreenState {
