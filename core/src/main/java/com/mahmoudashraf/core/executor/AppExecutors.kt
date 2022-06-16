@@ -1,4 +1,4 @@
-package com.mahmoudashraf.instabugchallenge.core.executor
+package com.mahmoudashraf.core.executor
 
 import android.os.Handler
 import android.os.Looper

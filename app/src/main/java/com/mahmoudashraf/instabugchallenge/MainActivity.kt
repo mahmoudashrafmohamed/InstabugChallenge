@@ -2,7 +2,7 @@ package com.mahmoudashraf.instabugchallenge
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mahmoudashraf.instabugchallenge.core.adroidextensions.replaceFragment
+import com.mahmoudashraf.core.androidextensions.replaceFragment
 import com.mahmoudashraf.instabugchallenge.words.fragments.WordsFragment
 
 class MainActivity : AppCompatActivity() {

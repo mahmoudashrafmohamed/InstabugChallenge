@@ -1,4 +1,4 @@
-package com.mahmoudashraf.instabugchallenge.core.adroidextensions
+package com.mahmoudashraf.core.androidextensions
 
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
