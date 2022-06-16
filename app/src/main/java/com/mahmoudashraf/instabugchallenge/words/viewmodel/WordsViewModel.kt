@@ -5,23 +5,23 @@ import androidx.lifecycle.ViewModel
 import com.mahmoudashraf.data.repositories.WordsRepositoryImpl
 import com.mahmoudashraf.domain.usecases.GetWordsUseCase
 import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutors
-import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutorsManager
 import com.mahmoudashraf.instabugchallenge.words.mappers.mapToWordsListUIModel
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
+import java.util.concurrent.Executor
 
 enum class SortType {ASC, DESC}
 class WordsViewModel(
     private val getWordsUseCase: GetWordsUseCase = GetWordsUseCase(wordsRepository = WordsRepositoryImpl()),
-    private val executors: AppExecutorsManager = AppExecutors.instance,
+    private val executor: Executor = AppExecutors.instance.networkIO,
+    private val cachedWordList : MutableList<WordUIModel> = mutableListOf(),
+    private var sortType :String = SortType.ASC.name
 ) : ViewModel() {
 
     val screenState by lazy { MutableLiveData<WordsScreenState>() }
-    private val cachedWordList = mutableListOf<WordUIModel>()
-    private var sortType = SortType.ASC.name
 
     fun getWords() {
         screenState.postValue(WordsScreenState.Loading)
-        executors.networkIO.execute {
+        executor.execute {
             try {
                 val words = getWordsUseCase()
                 val wordsUIModelsList = words.mapToWordsListUIModel()
