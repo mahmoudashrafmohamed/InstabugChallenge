@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoudashraf.instabugchallenge.R
-import com.mahmoudashraf.instabugchallenge.core.adroidextensions.observe
+import com.mahmoudashraf.core.androidextensions.observe
 import com.mahmoudashraf.instabugchallenge.words.adapter.WordsAdapter
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
 import com.mahmoudashraf.instabugchallenge.words.viewmodel.WordsScreenState

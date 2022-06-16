@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mahmoudashraf.data.repositories.WordsRepositoryImpl
 import com.mahmoudashraf.domain.usecases.GetWordsUseCase
-import com.mahmoudashraf.instabugchallenge.core.executor.AppExecutors
+import com.mahmoudashraf.core.executor.AppExecutors
 import com.mahmoudashraf.instabugchallenge.words.mappers.mapToWordsListUIModel
 import com.mahmoudashraf.instabugchallenge.words.model.WordUIModel
 import java.util.concurrent.Executor

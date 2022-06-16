@@ -4,6 +4,7 @@ import com.mahmoudashraf.local.WordsLocalDataSource
 import com.mahmoudashraf.remote.WordsRemoteDataSource
 import org.junit.Assert
 import org.junit.Test
+import java.util.concurrent.Executor
 
 
 class WordsRepositoryImplTest {
@@ -24,8 +25,14 @@ class WordsRepositoryImplTest {
 
             override fun saveWords(words: List<String>) {}
         }
+        class CurrentThreadExecutor : Executor {
+            override fun execute(r: Runnable) {
+                r.run()
+            }
+        }
+        val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true, currentThreadExecutor)
         // act
         val result = wordsRepositoryImpl.getWords()
         // assert
@@ -49,8 +56,14 @@ class WordsRepositoryImplTest {
 
             override fun saveWords(words: List<String>) {}
         }
+        class CurrentThreadExecutor : Executor {
+            override fun execute(r: Runnable) {
+                r.run()
+            }
+        }
+        val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true, currentThreadExecutor)
         // assert
         Assert.assertThrows(Exception::class.java) { wordsRepositoryImpl.getWords() }
     }
@@ -72,8 +85,14 @@ class WordsRepositoryImplTest {
             }
             override fun saveWords(words: List<String>) {}
         }
+        class CurrentThreadExecutor : Executor {
+            override fun execute(r: Runnable) {
+                r.run()
+            }
+        }
+        val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor )
         // act
         wordsRepositoryImpl.getWords()
         // assert
@@ -98,8 +117,14 @@ class WordsRepositoryImplTest {
                 isSaveInvoked = true
             }
         }
+        class CurrentThreadExecutor : Executor {
+            override fun execute(r: Runnable) {
+                r.run()
+            }
+        }
+        val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true, currentThreadExecutor)
         // act
         wordsRepositoryImpl.getWords()
         // assert
@@ -123,8 +148,14 @@ class WordsRepositoryImplTest {
             }
             override fun saveWords(words: List<String>) {}
         }
+        class CurrentThreadExecutor : Executor {
+            override fun execute(r: Runnable) {
+                r.run()
+            }
+        }
+        val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = false)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = false, currentThreadExecutor)
         // act
         wordsRepositoryImpl.getWords()
         // assert

@@ -44,7 +44,7 @@ class WordsViewModelTest {
 
         val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor)
 
         val getWordsUseCase = GetWordsUseCase(wordsRepositoryImpl)
 
@@ -85,7 +85,7 @@ class WordsViewModelTest {
 
         val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor)
 
         val getWordsUseCase = GetWordsUseCase(wordsRepositoryImpl)
 
@@ -123,7 +123,7 @@ class WordsViewModelTest {
 
         val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor)
 
         val getWordsUseCase = GetWordsUseCase(wordsRepositoryImpl)
 
@@ -161,7 +161,7 @@ class WordsViewModelTest {
 
         val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor)
 
         val getWordsUseCase = GetWordsUseCase(wordsRepositoryImpl)
 
@@ -209,7 +209,7 @@ class WordsViewModelTest {
 
         val currentThreadExecutor = CurrentThreadExecutor()
         val wordsRepositoryImpl =
-            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true)
+            WordsRepositoryImpl(remoteDataSource, localDataSource, isInternetAvailable = true,currentThreadExecutor)
 
         val getWordsUseCase = GetWordsUseCase(wordsRepositoryImpl)
 

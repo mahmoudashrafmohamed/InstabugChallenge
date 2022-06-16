@@ -1,23 +1,27 @@
 package com.mahmoudashraf.instabugchallenge.words.fragments
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mahmoudashraf.instabugchallenge.MainActivity
 import com.mahmoudashraf.instabugchallenge.R
 import com.mahmoudashraf.instabugchallenge.words.adapter.WordsAdapter
-import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
 
+@RunWith(AndroidJUnit4::class)
 class WordsFragmentTest {
 
-    @get:Rule
-    var activityRule = ActivityTestRule(MainActivity::class.java)
+    @Before
+    fun setUp() {
+        ActivityScenario.launch(MainActivity::class.java)
+    }
 
     @Test
     fun test_isWordRecyclerViewVisible_onAppLaunch() {
